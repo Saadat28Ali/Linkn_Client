@@ -3,7 +3,7 @@ import Link from "../Link/Link";
 
 // Other imports
 import { Linkinter } from "../Link/Link";
-import { ThemesEnum } from "../../App";
+import { ThemesEnum } from "../../main";
 
 const Linkarea = (
     {

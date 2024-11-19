@@ -1,9 +1,12 @@
-// React imports --------------------------------
-// Types ----------------------------------------
-import { MouseEvent } from "react";
+// Script imports -------------------------------
+
+import resolveAsset from "../../scripts/resolveAsset";
 
 // Other imports --------------------------------
-import { ThemesEnum } from "../../App";
+
+import { ThemesEnum } from "../../main";
+
+// ----------------------------------------------
 
 const excludedFromRounding = ["youtube"];
 
@@ -69,9 +72,9 @@ const Icon = (
         }>
             <img
             src={
-                (platform.toLowerCase() === "youtube") ? "../../../public/SocialIcons/youtube.png" : 
-                (platform.toLowerCase() === "instagram") ? "../../../public/SocialIcons/instagram.png" :
-                (platform.toLowerCase() === "twitter") ? "../../../public/SocialIcons/twitter.png" : 
+                (platform.toLowerCase() === "youtube") ? resolveAsset("Images/SocialIcons/youtube.png") : 
+                (platform.toLowerCase() === "instagram") ? resolveAsset("Images/SocialIcons/instagram.png") :
+                (platform.toLowerCase() === "twitter") ? resolveAsset("Images/SocialIcons/twitter.png") : 
                 ""
             }
             alt={platform}
@@ -96,6 +99,7 @@ const Icon = (
             }>
 
             </img>
+
         </a>
     );
 }

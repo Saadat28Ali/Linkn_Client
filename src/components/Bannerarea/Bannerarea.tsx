@@ -1,21 +1,31 @@
 // Other imports --------------------------------
-import { ThemesEnum } from "../../App";
+
+import { ThemesEnum } from "../../main";
 
 // Component imports ----------------------------
+
 import Linkarea from "../Linkarea/Linkarea";
+
+// Type imports ---------------------------------
+
+import { Linkinter } from "../Link/Link";
+
+// ----------------------------------------------
 
 const Bannerarea = (
     {
         profileImage, 
         name, 
         subtext,
-        theme
+        theme, 
+        links
     }:
     {
         profileImage?: string, 
         name: string, 
         subtext?: string, 
-        theme: ThemesEnum
+        theme: ThemesEnum, 
+        links: Array<Linkinter>
     }
 ) => {
     return (
@@ -32,7 +42,7 @@ const Bannerarea = (
         `}
         >
             <img 
-            src={profileImage} 
+            src={"data:image/png;base64," + profileImage} 
             className="
             BannerImage
 
@@ -60,7 +70,7 @@ const Bannerarea = (
                 <div className="min-h-32 w-screen"></div>
 
                 <img
-                src={profileImage}
+                src={"data:image/png;base64," + profileImage}
                 className="
                 ProfileImage
 
@@ -97,7 +107,7 @@ const Bannerarea = (
 
                 <div className="min-h-20 w-screen"></div>
 
-                <Linkarea LinksArr={[
+                {/* <Linkarea LinksArr={[
                     {
                     icon: "../../../public/SocialIcons/youtube.png", 
                     text: "My Youtube Channel", 
@@ -113,7 +123,9 @@ const Bannerarea = (
                     text: "My Twitter Profile", 
                     url: "https://www.twitter.com"
                     }
-                ]} theme={theme} />
+                ]} theme={theme} /> */}
+
+                <Linkarea theme={theme} LinksArr={links}/>
             </div>
         
 

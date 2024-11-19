@@ -1,5 +1,8 @@
+// Script imports -------------------------------
+import resolveAsset from "../../scripts/resolveAsset";
+
 // Other imports --------------------------------
-import { ThemesEnum } from "../../App";
+import { ThemesEnum } from "../../main";
 
 interface Linkinter {
     icon?: string, 
@@ -72,7 +75,7 @@ const Link = (
 
             size-10
             "
-            src={data.icon}
+            src={(data.icon !== undefined) ? resolveAsset(data.icon) : ""}
             />
 
             <div
