@@ -63,46 +63,6 @@ const LinksPage = (
     links = loadedData.links;
   }
 
-  // return (
-  //   <div>
-  //     <form encType="text/plain" onSubmit={(event: FormEvent) => {
-  //       event.preventDefault();
-  //     }}>
-  //       <input id="inputImage" type="file" onChange={async (event) => {
-  //         // const imagefile: File = new File();
-  //         const fileReader: FileReader = new FileReader();
-  //         fileReader.onload = () => {
-  //           if (typeof(fileReader.result) === "string") {
-  //             sendImage(fileReader.result.split(",")[1]).then(() => {
-  //               console.log("image sent");
-  //             });
-  //           }
-            
-  //         };
-  //         fileReader.readAsDataURL(event.target.files[0]);
-  //       }}/>
-  //       <button type="submit"> Submit </button>
-  //       <img id="image" src="" alt="No image" />
-  //       <button onClick={async () => {
-  //         fetchImage().then((
-  //           result
-  //         ) => {
-  //           console.log(result);
-  //           const imageElem: HTMLImageElement | null = document.querySelector("#image");
-  //           if (imageElem !== null && result !== null && result !== undefined) {
-  //             imageElem.src = `data:image/jpeg;base64, ${result}`;
-  //             console.log(result);
-  //           } else {
-  //             console.log("Something went wrong");
-  //           }
-  //         });
-          
-  //       }}> Change image </button>
-  //     </form>
-      
-  //   </div>
-  // );
-
   return (
     <div
     className={
