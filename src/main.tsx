@@ -12,9 +12,14 @@ import './index.css'
 
 import { createBrowserRouter, RouterProvider, redirect } from 'react-router-dom';
 
-// Loader imports
+// Loader imports -------------------------------
 
 import getLinksPageData from './scripts/linksPageLoader.ts';
+
+// Script imports -------------------------------
+
+import { readFromLocalStorage } from './scripts/localStorage.ts';
+import unhashToken from './scripts/unhashToken.ts';
 
 // Component imports ----------------------------
 
@@ -37,9 +42,11 @@ const dummyUserData = {
 }
 
 const currentUserData: {
-  username: string
+  username: string, 
+  token: string | null
 } = {
-  username: ""
+  username: "",
+  token: readFromLocalStorage("token")
 }
 
 const browserRouter = createBrowserRouter([
@@ -51,11 +58,27 @@ const browserRouter = createBrowserRouter([
         path: "/page", 
         element:  <LinksPage />, 
         loader: async () => {
+
+          // Using session token to find the username if the username is not
+          // available and session token is
+
+          if (currentUserData.token !== null && currentUserData.username === "")  {
+            const unhashedData: any = await unhashToken(currentUserData.token);
+            if (unhashedData.data === "Action could not be completed, user with provided details was not found.") {
+            } else {
+              currentUserData.username = unhashedData.data.token.username;
+            }
+
+          }
+
+          // Using the username to fetch links data, if the username is not 
+          // available, it redirects to the login page
+
           let linksPageData: any = null;
           if (currentUserData.username !== "") {
             linksPageData = await getLinksPageData(currentUserData.username, undefined);
           } else return redirect("/login");
-    
+
           if (Object.keys(linksPageData).length === 0) {
             return redirect("/login");
           } else return linksPageData;

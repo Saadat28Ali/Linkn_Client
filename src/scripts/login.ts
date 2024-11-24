@@ -5,6 +5,8 @@ import axios from "axios";
 // Script imports -------------------------------
 
 import findUser, { checkUserExists } from "./findUser";
+import { writeToLocalStorage } from "./localStorage";
+import requestToken from "./requestToken";
 
 // ----------------------------------------------
 
@@ -37,6 +39,11 @@ export default async function login(
         if (foundUser.data.username === username && foundUser.data.password === password) {
             // Credentials are correct
             
+            if (rememberMe) {
+                const token = await requestToken(username);
+                writeToLocalStorage("token", token.data);
+            }
+
             console.log("Logged in");
             userDataVar.username = username;
 
