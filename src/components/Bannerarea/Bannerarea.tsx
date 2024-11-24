@@ -5,6 +5,8 @@ import { ThemesEnum } from "../../main";
 // Component imports ----------------------------
 
 import Linkarea from "../Linkarea/Linkarea";
+import HeadingText from "../../components/HeadingText/HeadingText";
+import SubheadingText from "../../components/SubheadingText/SubheadingText";
 
 // Type imports ---------------------------------
 
@@ -82,7 +84,7 @@ const Bannerarea = (
 
                 "
                 />
-
+{/* 
                 <h1
                 className="
                 drop-shadow-[0px_0px_20px_rgba(0,0,0,1)]
@@ -94,8 +96,11 @@ const Bannerarea = (
                 font-bold
                 ">
                     {name}
-                </h1>
-                <p
+                </h1> */}
+
+                <HeadingText text={name} color={"light"} />
+
+                {/* <p
                 className="
                 drop-shadow-[0px_0px_20px_rgba(0,0,0,1)]
 
@@ -103,33 +108,12 @@ const Bannerarea = (
                 text-xl
                 ">
                     {subtext}
-                </p>
+                </p> */}
 
+                <SubheadingText text={(subtext) ? subtext : ""} color={"light"} />
                 <div className="min-h-20 w-screen"></div>
-
-                {/* <Linkarea LinksArr={[
-                    {
-                    icon: "../../../public/SocialIcons/youtube.png", 
-                    text: "My Youtube Channel", 
-                    url: "https://www.youtube.com"
-                    }, 
-                    {
-                    icon: "../../../public/SocialIcons/instagram.png", 
-                    text: "My Instagram Page", 
-                    url: "https://www.instagram.com"
-                    }, 
-                    {
-                    icon: "../../../public/SocialIcons/twitter.png", 
-                    text: "My Twitter Profile", 
-                    url: "https://www.twitter.com"
-                    }
-                ]} theme={theme} /> */}
-
                 <Linkarea theme={theme} LinksArr={links}/>
             </div>
-        
-
-
         </section>
 
         

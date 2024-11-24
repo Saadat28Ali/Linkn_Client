@@ -14,7 +14,8 @@ import { createBrowserRouter, RouterProvider, redirect } from 'react-router-dom'
 
 // Loader imports -------------------------------
 
-import getLinksPageData from './scripts/linksPageLoader.ts';
+import getLinksPageData from './scripts/loaders/linksPageLoader.ts';
+import getEditPageData from './scripts/loaders/editPageLoader.ts';
 
 // Script imports -------------------------------
 
@@ -86,11 +87,14 @@ const browserRouter = createBrowserRouter([
       }, 
       {
         path: "/login", 
-        element: <LoginPage userDataVar={currentUserData} />, 
+        element: <LoginPage userDataVar={currentUserData} theme={ThemesEnum.darkTheme}/>, 
       }, 
       {
         path: "/edit", 
-        element: <EditPage />
+        element: <EditPage />, 
+        loader: async () => {
+          return await getEditPageData();
+        }
       }
     ]
   }

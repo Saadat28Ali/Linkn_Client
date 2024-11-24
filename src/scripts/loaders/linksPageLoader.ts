@@ -4,8 +4,8 @@ import axios from "axios";
 
 // Script imports -------------------------------
 
-import fetchImage from "./fetchImage";
-import unhashToken from "./unhashToken";
+import fetchImage from "../fetchImage";
+import unhashToken from "../unhashToken";
 
 // ----------------------------------------------
 

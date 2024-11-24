@@ -80,6 +80,7 @@ export default function FormTextInput(
                     focus:outline-blue-500
 
                     text-xl
+                    text-customBlack
                     p-2
                     
                 ` : `
@@ -91,6 +92,7 @@ export default function FormTextInput(
                     focus:outline-blue-500
                     
                     text-xl
+                    text-customBlack
                     p-2
                 `} />
                 

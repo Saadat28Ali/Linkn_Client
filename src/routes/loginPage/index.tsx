@@ -10,21 +10,29 @@ import { useNavigate } from "react-router";
 
 import login from "../../scripts/login";
 
+// Other imports --------------------------------
+
+import { ThemesEnum } from "../../main";
+
 // Component imports ----------------------------
 
 import FormTextInput from "../../components/FormTextInput/FormTextInput";
 import LoadingIndicator from "../../components/LoadingIndicator/LoadingIndicator";
+import HeadingText from "../../components/HeadingText/HeadingText";
+import SubheadingText from "../../components/SubheadingText/SubheadingText";
 
 // ----------------------------------------------
 
 export default function LoginPage(
     {
-        userDataVar
+        userDataVar, 
+        theme
     }:
     {
         userDataVar: {
             username: string
-        }
+        }, 
+        theme: ThemesEnum
     }
 ) {
     const navigate = useNavigate();
@@ -35,12 +43,26 @@ export default function LoginPage(
 
     return (
         <div
-        className="
+        className={
+        (theme === ThemesEnum.lightTheme) ?
+        `
         LoginPage
         
         w-screen
         h-screen
-        ">
+
+        text-customBlack
+        bg-white
+        ` :
+        `
+        LoginPage
+
+        w-screen
+        h-screen
+
+        bg-customBlack
+        text-white
+        `}>
             <section
             className="
             w-full
@@ -60,16 +82,9 @@ export default function LoginPage(
                 items-start
                 md:items-center
                 ">
-                    <h1
-                    className="
-                    mb-5
 
-                    text-customBlack
-                    text-6xl
-                    font-bold
-                    ">
-                        Login
-                    </h1>
+                    <HeadingText text={"Login"} theme={theme} />
+{/* 
                     <p
                     className="
                     mb-5
@@ -78,7 +93,10 @@ export default function LoginPage(
                     text-xl
                     ">
                         Already a user? Sign up
-                    </p>
+                    </p> */}
+
+                    <SubheadingText text={"Already a user? Sign up"} theme = {theme} />
+
                 </div>
                 <div
                 className="
@@ -180,14 +198,22 @@ export default function LoginPage(
                             w-5
                             " />
                             <label htmlFor="rememberMeCheckboxInput"
-                            className="
+                            className={
+                            (theme === ThemesEnum.lightTheme) ?
+                            `
                             ml-2
                             -mt-1
 
                             text-customBlack
                             select-none
+                            ` : 
+                            `
+                            ml-2
+                            -mt-1
 
-                            "> Remember me </label>
+                            text-white
+                            select-none
+                            `}> Remember me </label>
                         </div>
 
                         <button type="submit"
