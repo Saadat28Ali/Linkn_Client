@@ -1,6 +1,6 @@
-// Module imports -------------------------------
+// Enum imports ---------------------------------
 
-import { useLoaderData } from "react-router";
+import { ThemesEnum } from "../../main";
 
 // Component imports ----------------------------
 
@@ -9,17 +9,37 @@ import HeadingText from "../../components/HeadingText/HeadingText";
 // ----------------------------------------------
 
 const EditPage = (
-    {}:
-    {}
+    {
+        theme
+    }:
+    {
+        theme: ThemesEnum
+    }
 ) => {
-
-    const loaderData: null = useLoaderData() as null;
 
     return (
         <div
-        className="EditPage"
-        >
-            <HeadingText text={"Edit links"} color={"dark"} />
+        className={
+        (theme === ThemesEnum.darkTheme) ? 
+        `
+        EditPage
+
+        w-screen
+        h-screen
+
+        bg-customBlack
+
+        ` :
+        `
+        EditPage
+
+        w-screen
+        h-screen
+
+        bg-white
+        `
+        }>
+            <HeadingText text={"Edit links"} theme={theme} />
         </div>
     );
 }

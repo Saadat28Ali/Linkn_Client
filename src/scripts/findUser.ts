@@ -4,7 +4,8 @@ import axios from "axios";
 
 // ----------------------------------------------
 
-const serverUrl: string = "http://localhost:3000/"
+// const serverUrl: string = "http://localhost:3000/"
+const serverUrl: string = "https://linkn-server.vercel.app/"
 
 export default function findUser(
     username: string

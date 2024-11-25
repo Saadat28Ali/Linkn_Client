@@ -114,7 +114,7 @@ export default function LoginPage(
                             setLoadingState(true);
                             const credentialsCheckResult: number = await login(usernameElem.value, passwordElem.value, rememberMeElem.checked, userDataVar);
                             if (credentialsCheckResult === 0) {
-                                navigate("/page");
+                                navigate("/edit");
                             } else if (credentialsCheckResult === 1) {
                                 setIncorrectUsernameState(true);
                             } else if (credentialsCheckResult === 2) {
@@ -132,38 +132,6 @@ export default function LoginPage(
                     items-start
                     justify-center
                     ">
-                        {/* <label htmlFor="usernameTextInput"
-                        className="
-                        select-none
-                        text-sm
-                        text-customGray
-                        "> Username </label>
-                        <input type="text" id="usernameTextInput" placeholder="Username..."
-                        className="
-                        my-2
-                        -mx-2
-                        rounded-lg
-
-                        text-xl
-                        p-2
-                        "/>
-
-                        <label htmlFor="passwordTextInput"
-                        className="
-                        select-none
-                        text-sm
-                        text-customGray
-                        "> Password </label>
-                        <input type="password" id="passwordTextInput" placeholder="Password..."
-                        className="
-                        my-2
-                        -mx-2
-                        rounded-lg
-
-                        text-xl
-                        p-2
-                        "/> */}
-
                         <FormTextInput 
                         id="usernameTextInput" 
                         placeholder="Username..." 
