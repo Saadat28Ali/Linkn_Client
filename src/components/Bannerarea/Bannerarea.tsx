@@ -7,6 +7,7 @@ import { ThemesEnum } from "../../main";
 import Linkarea from "../Linkarea/Linkarea";
 import HeadingText from "../../components/HeadingText/HeadingText";
 import SubheadingText from "../../components/SubheadingText/SubheadingText";
+import ThemeButton from "../ThemeButton/ThemeButton";
 
 // Type imports ---------------------------------
 
@@ -20,6 +21,7 @@ const Bannerarea = (
         name, 
         subtext,
         theme, 
+        setTheme, 
         links
     }:
     {
@@ -27,6 +29,7 @@ const Bannerarea = (
         name: string, 
         subtext?: string, 
         theme: ThemesEnum, 
+        setTheme: Function, 
         links: Array<Linkinter>
     }
 ) => {
@@ -43,6 +46,17 @@ const Bannerarea = (
         overflow-hidden
         `}
         >
+            <span
+            className="
+            z-20
+            top-0
+            right-0
+            absolute
+            "
+            >
+                <ThemeButton theme={theme} setTheme={setTheme} />
+            </span>
+
             <img 
             src={"data:image/png;base64," + profileImage} 
             className="
@@ -81,36 +95,15 @@ const Bannerarea = (
                 rounded-full
                 
                 object-cover
+                transition-all
+
+                hover:scale-105
 
                 "
                 />
-{/* 
-                <h1
-                className="
-                drop-shadow-[0px_0px_20px_rgba(0,0,0,1)]
 
-                mb-2
-
-                text-white
-                text-6xl
-                font-bold
-                ">
-                    {name}
-                </h1> */}
-
-                <HeadingText text={name} color={"light"} />
-
-                {/* <p
-                className="
-                drop-shadow-[0px_0px_20px_rgba(0,0,0,1)]
-
-                text-white
-                text-xl
-                ">
-                    {subtext}
-                </p> */}
-
-                <SubheadingText text={(subtext) ? subtext : ""} color={"light"} />
+                <HeadingText text={name} theme={ThemesEnum.darkTheme} />
+                <SubheadingText text={(subtext) ? subtext : ""} theme={ThemesEnum.darkTheme} />
                 <div className="min-h-20 w-screen"></div>
                 <Linkarea theme={theme} LinksArr={links}/>
             </div>

@@ -9,6 +9,7 @@ import { useParams } from "react-router";
 // Script imports -------------------------------
 
 import getLinksPageData from "../../scripts/loaders/linksPageLoader";
+import { readTheme, writeTheme } from "../../scripts/theme";
 
 // Type and enum imports ------------------------
 
@@ -20,6 +21,7 @@ import { ThemesEnum } from "../../main";
 import Icon from "../../components/Icon/Icon";
 import Bannerarea from "../../components/Bannerarea/Bannerarea";
 import LoadingPage from "../../components/LoadingPage/LoadingPage";
+import ThemeButton from "../../components/ThemeButton/ThemeButton";
 
 // ----------------------------------------------
 
@@ -60,7 +62,10 @@ const LinksPage = (
     getLinksData();
   }, []);
 
-  let theme: ThemesEnum = ThemesEnum.darkTheme;
+  const themeInStorage: number | null = readTheme();
+  const [theme, setTheme] = useState<ThemesEnum>(((themeInStorage === null) ? ThemesEnum.lightTheme : themeInStorage));
+
+
   let socialLinks: socialLinksInter = {
     instagram: "", 
     twitter: "", 
@@ -72,7 +77,6 @@ const LinksPage = (
   let links: Array<Linkinter> = [];
 
   if (linksData !== null && linksData !== undefined && Object.keys(linksData).length > 0) {
-    theme = (linksData.lightMode) ? ThemesEnum.lightTheme : ThemesEnum.darkTheme;
     socialLinks = linksData.socialLinks;
     displayName = linksData.displayName;
     displayImage = linksData.displayImage;
@@ -177,6 +181,7 @@ const LinksPage = (
           name={displayName} 
           subtext={subtext}
           theme={theme}
+          setTheme={setTheme}
           links={links}
           />
         </>

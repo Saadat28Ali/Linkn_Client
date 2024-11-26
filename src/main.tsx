@@ -125,7 +125,7 @@ const browserRouter = createBrowserRouter([
       }, 
       {
         path: "/login", 
-        element: <LoginPage userDataVar={currentUserData} theme={ThemesEnum.darkTheme}/>
+        element: <LoginPage userDataVar={currentUserData} />
       }
     ]
   }

@@ -1,6 +1,6 @@
 // React imports --------------------------------
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 // Module imports -------------------------------
 
@@ -9,6 +9,7 @@ import { useNavigate } from "react-router";
 // Script imports -------------------------------
 
 import login from "../../scripts/login";
+import { readTheme, writeTheme } from "../../scripts/theme";
 
 // Other imports --------------------------------
 
@@ -20,19 +21,18 @@ import FormTextInput from "../../components/FormTextInput/FormTextInput";
 import LoadingIndicator from "../../components/LoadingIndicator/LoadingIndicator";
 import HeadingText from "../../components/HeadingText/HeadingText";
 import SubheadingText from "../../components/SubheadingText/SubheadingText";
+import ThemeButton from "../../components/ThemeButton/ThemeButton";
 
 // ----------------------------------------------
 
 export default function LoginPage(
     {
         userDataVar, 
-        theme
     }:
     {
         userDataVar: {
             username: string
         }, 
-        theme: ThemesEnum
     }
 ) {
     const navigate = useNavigate();
@@ -40,6 +40,12 @@ export default function LoginPage(
 
     const [incorrectUsernameState, setIncorrectUsernameState] = useState<boolean>(false);
     const [incorrectPasswordState, setIncorrectPasswordState] = useState<boolean>(false);
+
+    const themeInStorage: number | null = readTheme();
+    const [theme, setTheme] = useState<ThemesEnum>((themeInStorage === null) ? ThemesEnum.lightTheme : themeInStorage);
+    useEffect(() => {
+        writeTheme(theme);
+    }, [theme]);
 
     return (
         <div
@@ -75,6 +81,9 @@ export default function LoginPage(
             pl-20
             md:pl-0
             ">
+
+                <ThemeButton theme={theme} setTheme={setTheme} />
+
                 <div
                 className="
                 leftSection
