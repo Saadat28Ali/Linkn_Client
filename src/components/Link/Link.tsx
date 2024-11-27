@@ -43,6 +43,7 @@ const Link = (
         justify-start
         items-center
         transition-all
+        py-2
         
         hover:scale-105
         `:
@@ -62,6 +63,7 @@ const Link = (
         justify-start
         items-center
         transition-all
+        py-2
 
         hover:scale-105
         `
@@ -92,6 +94,7 @@ const Link = (
                 font-bold
                 text-xl
                 leading-none
+                text-left
                 
                 "
                 >

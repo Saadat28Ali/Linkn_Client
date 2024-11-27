@@ -69,6 +69,23 @@ export default function LoginPage(
         bg-customBlack
         text-white
         `}>
+            <span
+            className="
+            TopRightFloatingSpan
+
+            absolute
+            top-5
+            right-5
+            z-10
+            flex
+            flex-row
+            items-center
+            justify-end
+            ">
+                <ThemeButton theme={theme} setTheme={setTheme} />   
+            </span>
+
+
             <section
             className="
             w-full
@@ -82,7 +99,7 @@ export default function LoginPage(
             md:pl-0
             ">
 
-                <ThemeButton theme={theme} setTheme={setTheme} />
+
 
                 <div
                 className="

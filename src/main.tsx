@@ -36,12 +36,6 @@ enum ThemesEnum {
   lightTheme
 }
 
-// const dummyUserData = {
-//   username: "John Doe", 
-//   // sessionToken: "0cb8dd4857400cd3582b9106ea508023e0593ca4"
-//   sessionToken: undefined
-// }
-
 const currentUserData: {
   username: string, 
   token: string | null
@@ -55,73 +49,49 @@ const browserRouter = createBrowserRouter([
     path: "/", 
     element: <RootPage />, 
     children: [
-      // {
-      //   path: "/page", 
-      //   element:  <LinksPage />, 
-      //   loader: async () => {
-
-      //     // Using session token to find the username if the username is not
-      //     // available and session token is
-
-      //     if (currentUserData.token !== null && currentUserData.username === "")  {
-      //       const unhashedData: any = await unhashToken(currentUserData.token);
-      //       if (unhashedData.data === "Action could not be completed, user with provided details was not found.") {
-      //       } else {
-      //         currentUserData.username = unhashedData.data.token.username;
-      //       }
-
-      //     }
-
-      //     // Using the username to fetch links data, if the username is not 
-      //     // available, it redirects to the login page
-
-      //     let linksPageData: any = null;
-      //     if (currentUserData.username !== "") {
-      //       linksPageData = await getLinksPageData(currentUserData.username, undefined);
-      //     } else return redirect("/login");
-
-      //     if (Object.keys(linksPageData).length === 0) {
-      //       return redirect("/login");
-      //     } else return linksPageData;
-      //   } 
-      // }, 
-      // {
-      //   path: "/login", 
-      //   element: <LoginPage userDataVar={currentUserData} theme={ThemesEnum.darkTheme}/>, 
-      // }, 
       {
         path: "/page/:username", 
         element: <LinksPage />, 
-        // loader: async () => {
-
-        //   // Using session token to find the username if the username is not
-        //   // available and session token is
-
-        //   // if (currentUserData.token !== null && currentUserData.username === "")  {
-        //   //   const unhashedData: any = await unhashToken(currentUserData.token);
-        //   //   if (unhashedData.data === "Action could not be completed, user with provided details was not found.") {
-        //   //   } else {
-        //   //     currentUserData.username = unhashedData.data.token.username;
-        //   //   }
-        //   // }
-
-        //   // Using the username to fetch links data, if the username is not 
-        //   // available, it redirects to the login page
-
-        // //   let linksPageData: any = null;
-        // //   if (currentUserData.username !== "") {
-        // //     linksPageData = await getLinksPageData(currentUserData.username, undefined);
-        // //   } else return redirect("/login");
-
-        // //   if (Object.keys(linksPageData).length === 0) {
-        // //     return redirect("/login");
-        // //   } else return linksPageData;
-        // // }
-        // }
       }, 
       {
         path: "/edit", 
-        element: <EditPage theme={ThemesEnum.darkTheme} />, 
+        element: <EditPage />, 
+        loader: async () => {
+          if (currentUserData.username !== "") {
+            // username already exists
+            // console.log("Edit Page Loader Function/Case: Username already exists", currentUserData.username);
+
+          } else if (currentUserData.token !== null) {
+            // session token exists
+            // console.log("Edit Page Loader Function/Case: Session Token already exists", currentUserData.token);
+            
+            const unhashedResult = await unhashToken(currentUserData.token);
+            if (unhashedResult.data === "Action could not be completed, user with provided details was not found.") {
+              // invalid token
+              // console.log("Edit Page Loader Function/Case: Session Token is invalid");
+              return redirect("/login");
+
+            } else {
+              // valid token
+              // console.log("Edit Page Loader Function/Case: Session Token is valid");
+              currentUserData.username = unhashedResult.data.username;
+            }
+            
+            // console.log("Edit Page Loader Function/Case: Token Unhashed", unhashedResult);
+
+          } else {
+            // neither username nor session token exists
+
+            return redirect("/login");
+          }
+
+          // Username already exists or has been found
+          // using the session token
+
+          // console.log("Edit Page Loader Function/Case: Username has been resolved, loading data");
+          const editPageData = getEditPageData(currentUserData.username);
+          return editPageData;
+        }
       }, 
       {
         path: "/login", 

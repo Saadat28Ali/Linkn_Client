@@ -51,9 +51,13 @@ const Icon = (
         rounded-full
 
         bg-white
-        
         text-customBlack
         transition-all
+        flex
+        justify-center
+        items-center
+        w-20
+        h-20
 
         hover:shadow-[0px_0px_40px_2px_rgba(0,0,0,0.5)]
         `:
@@ -66,6 +70,11 @@ const Icon = (
 
         text-white
         transition-all
+        flex
+        justify-center
+        items-center
+        w-20
+        h-20
 
         hover:shadow-[0px_0px_40px_2px_rgba(0,0,0,0.5)]
         `
@@ -85,15 +94,13 @@ const Icon = (
 
             rounded-full
 
-            size-24
-
+            size-20
             p-5
             `:
             `
             IconImage
 
-            size-24
-
+            size-20
             p-5
             `
             }>

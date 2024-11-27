@@ -38,6 +38,9 @@ const Bannerarea = (
         className={`
         Bannerarea
 
+        w-full
+        h-screen
+
         flex
         flex-col
         justify-center
@@ -48,13 +51,18 @@ const Bannerarea = (
         >
             <span
             className="
-            z-20
-            top-0
-            right-0
+            TopRightFloatingSpan
+
             absolute
-            "
-            >
-                <ThemeButton theme={theme} setTheme={setTheme} />
+            top-4
+            right-5
+            z-20
+            flex
+            flex-row
+            items-center
+            justify-end
+            ">
+                <ThemeButton theme={theme} setTheme={setTheme} />   
             </span>
 
             <img 
@@ -72,7 +80,7 @@ const Bannerarea = (
             Name
 
             w-full
-            min-h-screen
+            h-full
 
             z-10
             backdrop-blur-md
