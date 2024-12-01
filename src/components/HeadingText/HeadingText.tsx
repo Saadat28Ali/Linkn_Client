@@ -4,14 +4,22 @@ import { ThemesEnum } from "../../main";
 
 // ----------------------------------------------
 
+export enum headingTextSizes {
+    small, 
+    medium,
+    large
+}
+
 export default function HeadingText(
     {
         text,
-        theme
+        theme, 
+        size
     }:
     {
         text: string
-        theme: ThemesEnum
+        theme: ThemesEnum, 
+        size: headingTextSizes
     }
 ) {
     return (
@@ -22,17 +30,19 @@ export default function HeadingText(
         mb-5
 
         text-customBlack
-        text-6xl
         font-bold
         ` :
         `
         mb-5
 
         text-white
-        text-6xl
         font-bold
         `
-        }>
+        } style={{
+            fontSize:   (size === headingTextSizes.small) ? "2.25rem" :
+                        (size === headingTextSizes.medium) ? "3.75rem":
+                        (size === headingTextSizes.large) ? "6rem" : "default", 
+        }}>
             {text}
         </h1>
     );

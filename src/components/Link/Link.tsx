@@ -21,7 +21,6 @@ const Link = (
 
     }
 ) => {
-
     return (
         <a 
         href={data.url}
@@ -77,7 +76,7 @@ const Link = (
 
             size-10
             "
-            src={(data.icon !== undefined) ? resolveAsset(data.icon) : ""}
+            src={(data.icon !== undefined) ? "data:image/png;base64," + data.icon : ""}
             />
 
             <div

@@ -4,20 +4,33 @@ import { useState, useEffect } from "react";
 
 // ----------------------------------------------
 
+export enum formTextInputSizes {
+    small, 
+    medium, 
+    large
+}
+
 export default function FormTextInput(
     {
         id, 
         type, 
         placeholder, 
         label, 
+        defaultValue,
+        OnChange, 
+        size, 
         incorrectInputState, 
-        setIncorrectInputState
+        setIncorrectInputState, 
+
     }:
     {
         id: string, 
         type: string, 
         placeholder: string, 
         label: string, 
+        defaultValue?: string, 
+        OnChange?: Function, 
+        size?: formTextInputSizes, 
         incorrectInputState: boolean, 
         setIncorrectInputState: Function
     }
@@ -66,35 +79,37 @@ export default function FormTextInput(
                         : type 
                     : "text"} 
                 id={id} placeholder={placeholder}
-                onChange={() => {
+                defaultValue={defaultValue}
+                onChange={(event: any) => {
                     setIncorrectInputState(false);
+                    ((OnChange) ? OnChange(event) : {})
                 }}
 
                 className={(incorrectInputState) ? `
                     my-2
-                    -mx-2
                     w-full
                     rounded-lg
                     outline-none
                     outline-red-500
                     focus:outline-blue-500
 
-                    text-xl
                     text-customBlack
                     p-2
                     
                 ` : `
                     my-2
-                    -mx-2
                     w-full
                     rounded-lg
                     outline-none
                     focus:outline-blue-500
                     
-                    text-xl
                     text-customBlack
                     p-2
-                `} />
+                `} style={{
+                    fontSize:   (size === formTextInputSizes.small) ? "1rem" : 
+                                (size === formTextInputSizes.large) ? "1.875rem" : 
+                                "1.25rem"
+                }} />
                 
                 {(type === "password") ? 
                     <span

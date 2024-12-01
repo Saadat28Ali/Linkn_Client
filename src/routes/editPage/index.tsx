@@ -4,18 +4,16 @@ import { useState, useEffect, FormEvent } from "react";
 
 // Module imports -------------------------------
 
-import { useNavigate, useLoaderData } from "react-router";
+import { useLoaderData } from "react-router";
 
 // Script imports -------------------------------
 
-import fetchImage from "../../scripts/fetchImage";
-import sendImage from "../../scripts/sendImage";
 import { writeTheme, readTheme } from "../../scripts/theme";
-import resolveAsset from "../../scripts/resolveAsset";
 
 // Enum imports ---------------------------------
 
 import { ThemesEnum } from "../../main";
+import { headingTextSizes } from "../../components/HeadingText/HeadingText";
 
 // Interface imports ----------------------------
 
@@ -24,16 +22,12 @@ import { Linkinter } from "../../components/Link/Link";
 // Component imports ----------------------------
 
 import HeadingText from "../../components/HeadingText/HeadingText";
-import SubheadingText from "../../components/SubheadingText/SubheadingText";
-import Bannerarea from "../../components/Bannerarea/Bannerarea";
-import LoadingPage from "../../components/LoadingPage/LoadingPage";
 import AccountButton from "../../components/AccountButton/AccountButton";
-import Linkarea from "../../components/Linkarea/Linkarea";
 import FormTextInput from "../../components/FormTextInput/FormTextInput";
 import LoadingIndicator from "../../components/LoadingIndicator/LoadingIndicator";
 import ThemeButton from "../../components/ThemeButton/ThemeButton";
 import Icon from "../../components/Icon/Icon";
-import Link from "../../components/Link/Link";
+import EditableLinkArea from "../../components/EditableLinkArea/EditableLinkArea";
 
 // ----------------------------------------------
 
@@ -44,8 +38,8 @@ interface socialLinksInter {
 }
 
 enum PreviewViewport {
-    desktop, 
-    mobile
+    Desktop, 
+    Mobile
 }
 
 const EditPage = (
@@ -57,8 +51,8 @@ const EditPage = (
     // const navigate = useNavigate();
     const [submitButtonLoadingState, setSubmitButtonLoadingState] = useState<boolean>(false);
     const [theme, setTheme] = useState<ThemesEnum>(ThemesEnum.darkTheme);
-    const [previewViewport, setPreviewViewport] = useState<PreviewViewport>(PreviewViewport.desktop);
-
+    const [previewViewport, setPreviewViewport] = useState<PreviewViewport>(PreviewViewport.Desktop);
+    const [modifiedUserData, setModifiedUserData] = useState<any>({...loaderData});
 
     useEffect(() => {
         const themeInStorage: number | null = readTheme();
@@ -71,7 +65,18 @@ const EditPage = (
         theme
     ]);
 
-    let modifiedUserData = {...loaderData};
+    useEffect(() => {
+        console.log("HERE");
+    }, [modifiedUserData]);
+
+    function updatePreview() {
+        const subtextTextInput: HTMLInputElement | null = document.querySelector("#SubtextTextInput");
+        setModifiedUserData((oldModifiedUserData: any) => {
+            let newModifiedUserData = {...oldModifiedUserData};
+            if (subtextTextInput !== null) newModifiedUserData.subtext = subtextTextInput.value;
+            return newModifiedUserData;
+        });
+    }
 
     return (
         <div
@@ -115,9 +120,8 @@ const EditPage = (
 
             flex
             flex-col
-            justify-center
+            justify-start
             items-center
-
             ">
                 <span
                 className="
@@ -137,48 +141,126 @@ const EditPage = (
                     <AccountButton profileImage={loaderData.displayImage} />
                 </span>
 
-                <HeadingText text={"Edit links"} theme={theme} />
+                <div className="Spacer w-full h-16" />
 
-                <form id="EditLinksForm" onSubmit={(event: FormEvent) => {event.preventDefault();}}>
+                <HeadingText text={"Edit links"} theme={theme} size={headingTextSizes.small} />
+
+                <form id="EditLinksForm" onSubmit={(event: FormEvent) => {
+                    event.preventDefault();
+                }}
+                className="
+
+                w-[70%]
+
+                flex
+                flex-col
+                items-center
+                ">
 
                     <input 
                     id="profileImageInput" 
                     type="file"
                     accept="image/*"
-                    className="
+                    onChange={(event: any) => {
+                        const image = event.target.files[0];
+                        const reader: FileReader = new FileReader();
+                        reader.readAsDataURL(image);
+                        reader.onload = () => {
+                            setModifiedUserData((oldModifiedUserData: any) => {
+                                let newModifiedUserData = {...oldModifiedUserData};
+                                newModifiedUserData.displayImage = (reader.result as string).slice(22, (reader.result as string).length);
+                                return newModifiedUserData;
+                            });
+                        }
+
+                    }}
+                    className={
+                    (theme === ThemesEnum.darkTheme) ?
+                    `
                     my-5
                     
                     text-white
-                    
-                    "
-                    />
+                    ` :
+                    `
+                    my-5
+
+                    text-customBlack
+                    `
+                    }/>
 
                     <FormTextInput 
                     id="SubtextTextInput" 
                     type="text" 
                     placeholder="Subtext" 
                     label="Subtext" 
+                    OnChange={() => {updatePreview()}}
+                    defaultValue={modifiedUserData.subtext}
                     incorrectInputState={false}
                     setIncorrectInputState={() => {}}
                     />
+                    
+                    <EditableLinkArea linksArr={modifiedUserData.links.map((linkObj: any) => {
+                        return (
+                            {
+                                icon: linkObj.icon, 
+                                text: linkObj.text, 
+                                url: linkObj.url
+                            } as Linkinter
+                        );
+                    })} setLinksArr={(newLinksArr: Array<Linkinter>) => {
+                        console.log(newLinksArr);
+                        modifiedUserData.links = [...newLinksArr];
+                        // console.log("HERE");
+                    }} OnChange={() => {updatePreview()}}/>
 
-                    <button type="submit"
+
+                    <div
                     className="
-                    rounded-lg
-                    mt-8
+                    ButtonsDiv
+
                     mb-4
                     h-12
-                    
-                    p-3
-                    bg-blue-500
                     w-full
-                    font-bold
-                    text-white
-                    flex
+
                     flex-row
-                    justify-center
-                    items-center
-                    "> {(submitButtonLoadingState) ? <LoadingIndicator /> : "Submit"} </button>
+                    justify-between
+                    gap-2
+                    ">
+                        <button
+                        onClick={(event: any) => {
+                            updatePreview();
+                        }}
+                        className="
+                        rounded-lg
+                        h-full
+                        w-full
+                        
+                        p-3
+                        bg-white
+                        font-bold
+                        text-customBlack
+                        flex
+                        flex-row
+                        justify-center
+                        items-center
+                        "> {(submitButtonLoadingState) ? <LoadingIndicator /> : "Update"} </button>
+
+                        <button type="submit"
+                        className="
+                        rounded-lg
+                        h-full
+                        w-full
+                        
+                        p-3
+                        bg-blue-500
+                        font-bold
+                        text-white
+                        flex
+                        flex-row
+                        justify-center
+                        items-center
+                        "> {(submitButtonLoadingState) ? <LoadingIndicator /> : "Submit"} </button>
+                    </div>
 
                 </form>
 
@@ -190,73 +272,98 @@ const EditPage = (
             
             w-full
             h-full
+            border-l-2
+            border-dotted
+            border-customGray
 
-            bg-white
+            bg-customBlack
             flex
             flex-col
             justify-start
             items-center
             relative
-
+            text-white
             ">  
                 
                 <div
-                className={(theme === ThemesEnum.darkTheme) ?
-                `
+                className="
                 w-full
                 
                 py-5
-                bg-white
-                ` :
-                `
-                w-full
-
-                py-5
                 bg-customBlack
-                `}>
-                    <HeadingText text={"Preview"} theme={(theme === ThemesEnum.darkTheme) ? ThemesEnum.lightTheme : ThemesEnum.darkTheme} />
+                ">
+                    <HeadingText text={"Preview"} theme={ThemesEnum.darkTheme} size={headingTextSizes.medium}/>
                     <p onClick={
                         () => {
                             setPreviewViewport(
                                 (oldPreviewViewport: PreviewViewport) => {
-                                    if (oldPreviewViewport === PreviewViewport.mobile) return PreviewViewport.desktop;
-                                    else if (oldPreviewViewport === PreviewViewport.desktop) return PreviewViewport.mobile;
-                                    return PreviewViewport.mobile;
+                                    if (oldPreviewViewport === PreviewViewport.Mobile) return PreviewViewport.Desktop;
+                                    else if (oldPreviewViewport === PreviewViewport.Desktop) return PreviewViewport.Mobile;
+                                    return PreviewViewport.Mobile;
                                 }
                             )
                         }
-                    }> {PreviewViewport[previewViewport].toString()} </p>
+                    } className="
+                    underline
+                    text-white
+                    cursor-pointer
+                    select-none
+                    "
+                    > {PreviewViewport[previewViewport].toString()} </p>
                 </div>
                 
                 <div
                 className={
-                (previewViewport === PreviewViewport.mobile) ?
-                `
-                PreviewArea
+                (previewViewport === PreviewViewport.Mobile) ?
+                    ((theme === ThemesEnum.darkTheme) ?
+                    `
+                    PreviewArea
 
-                w-[45vh]
-                h-full
-                m-5
-                
-                relative
-                bg-white
-                justify-start
-                ` :
-                `
-                PreviewArea
+                    w-[45vh]
+                    h-full
+                    m-5
+                    
+                    relative
+                    bg-customBlack
+                    justify-start
+                    ` :
+                    `
+                    PreviewArea
 
-                w-full
-                h-[30vw]
-                
-                relative
-                bg-white
-                justify-start
-                `
+                    w-[45vh]
+                    h-full
+                    m-5
+                    
+                    relative
+                    bg-white
+                    justify-start
+                    `) :
+                    ((theme === ThemesEnum.darkTheme) ? 
+                    `
+                    PreviewArea
+
+                    w-full
+                    h-[30vw]
+                    
+                    relative
+                    bg-customBlack
+                    justify-start
+                    ` :
+                    `
+                    PreviewArea
+
+                    w-full
+                    h-[30vw]
+                    
+                    relative
+                    bg-white
+                    justify-start
+                    `)
                 }>
                     
                     <header
                     className={
-                    (previewViewport === PreviewViewport.mobile) ?
+                    (previewViewport === PreviewViewport.Mobile) ?
                         ((theme === ThemesEnum.darkTheme) ? `
                         w-full
 
@@ -342,7 +449,7 @@ const EditPage = (
                     <img 
                     src={"data:image/png;base64," + modifiedUserData.displayImage} 
                     className={
-                    (previewViewport === PreviewViewport.desktop) ?
+                    (previewViewport === PreviewViewport.Desktop) ?
                     `
                     BannerImage
 
@@ -367,7 +474,7 @@ const EditPage = (
                     Name
 
                     w-full
-                    h-full
+
 
                     z-10
                     backdrop-blur-md
@@ -383,7 +490,7 @@ const EditPage = (
                         <img
                         src={"data:image/png;base64," + modifiedUserData.displayImage}
                         className={
-                        (previewViewport === PreviewViewport.desktop) ?
+                        (previewViewport === PreviewViewport.Desktop) ?
                         `
                         ProfileImage
 
@@ -415,7 +522,7 @@ const EditPage = (
                         {/* <HeadingText text={modifiedUserData.displayName} theme={ThemesEnum.darkTheme} /> */}
                         <h1
                         className={
-                        (previewViewport === PreviewViewport.desktop) ?
+                        (previewViewport === PreviewViewport.Desktop) ?
                         `
                         mb-2
 
@@ -435,7 +542,7 @@ const EditPage = (
                         {/* <SubheadingText text={(modifiedUserData.subtext) ? modifiedUserData.subtext : ""} theme={ThemesEnum.darkTheme} /> */}
                         <p
                         className={
-                        (previewViewport === PreviewViewport.mobile) ?
+                        (previewViewport === PreviewViewport.Mobile) ?
                         `
                         text-white
                         text-md
@@ -464,9 +571,10 @@ const EditPage = (
                                 return (
                                     // <Link data={link} key={index} theme={theme} />
                                     <a 
+                                    key={index}
                                     href={link.url}
                                     className={
-                                    (previewViewport === PreviewViewport.mobile) ?
+                                    (previewViewport === PreviewViewport.Mobile) ?
                                         ((theme === ThemesEnum.darkTheme) ? 
                                         `
                                         Link
@@ -555,7 +663,7 @@ const EditPage = (
                             
                                         size-5
                                         "
-                                        src={(link.icon !== undefined) ? resolveAsset(link.icon) : ""}
+                                        src={(link.icon !== undefined) ? "data:image/png;base64," + link.icon : ""}
                                         />
                             
                                         <div

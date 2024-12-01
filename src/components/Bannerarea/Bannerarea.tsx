@@ -9,9 +9,13 @@ import HeadingText from "../../components/HeadingText/HeadingText";
 import SubheadingText from "../../components/SubheadingText/SubheadingText";
 import ThemeButton from "../ThemeButton/ThemeButton";
 
-// Type imports ---------------------------------
+// Interface imports ----------------------------
 
 import { Linkinter } from "../Link/Link";
+
+// Enum imports ---------------------------------
+
+import { headingTextSizes } from "../HeadingText/HeadingText";
 
 // ----------------------------------------------
 
@@ -110,7 +114,7 @@ const Bannerarea = (
                 "
                 />
 
-                <HeadingText text={name} theme={ThemesEnum.darkTheme} />
+                <HeadingText text={name} theme={ThemesEnum.darkTheme} size={headingTextSizes.medium} />
                 <SubheadingText text={(subtext) ? subtext : ""} theme={ThemesEnum.darkTheme} />
                 <div className="min-h-20 w-screen"></div>
                 <Linkarea theme={theme} LinksArr={links}/>

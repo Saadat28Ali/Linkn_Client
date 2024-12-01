@@ -11,9 +11,10 @@ import { useNavigate } from "react-router";
 import login from "../../scripts/login";
 import { readTheme, writeTheme } from "../../scripts/theme";
 
-// Other imports --------------------------------
+// Enum imports --------------------------------
 
 import { ThemesEnum } from "../../main";
+import { headingTextSizes } from "../../components/HeadingText/HeadingText";
 
 // Component imports ----------------------------
 
@@ -100,7 +101,6 @@ export default function LoginPage(
             ">
 
 
-
                 <div
                 className="
                 leftSection
@@ -109,7 +109,7 @@ export default function LoginPage(
                 md:items-center
                 ">
 
-                    <HeadingText text={"Login"} theme={theme} />
+                    <HeadingText text={"Login"} theme={theme} size={headingTextSizes.medium}/>
 {/* 
                     <p
                     className="
