@@ -1,4 +1,4 @@
-const rootDir = "../../public/";
+const rootDir = "/";
 
 const resolveAsset = (
     identifier: string
