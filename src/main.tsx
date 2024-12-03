@@ -48,6 +48,13 @@ const browserRouter = createBrowserRouter([
   {
     path: "/", 
     element: <RootPage />, 
+    loader: async ({ request }) => {
+      const url = new URL(request.url);
+      if (url.pathname === "/") {
+        return redirect("/edit");
+      }
+      return null;
+    }, 
     children: [
       {
         path: "/page/:username", 

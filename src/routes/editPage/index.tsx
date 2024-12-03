@@ -9,6 +9,7 @@ import { useLoaderData } from "react-router";
 // Script imports -------------------------------
 
 import { writeTheme, readTheme } from "../../scripts/theme";
+import updateUserLinks from "../../scripts/updateUserLinks";
 
 // Enum imports ---------------------------------
 
@@ -111,6 +112,8 @@ const EditPage = (
 
         `
         }>
+
+            {/* Editing Section */}
             <section
             className="
             EditingSection
@@ -147,6 +150,14 @@ const EditPage = (
 
                 <form id="EditLinksForm" onSubmit={(event: FormEvent) => {
                     event.preventDefault();
+                    setSubmitButtonLoadingState(true);
+                    updateUserLinks(loaderData.username, modifiedUserData.subtext, modifiedUserData.socialLinks, modifiedUserData.links).then((result: any) => {
+                        console.log(result);
+                    }).catch((error: any) => {
+                        console.log(error);
+                    }).finally(() => {
+                        setSubmitButtonLoadingState(false);
+                    });
                 }}
                 className="
 
@@ -243,7 +254,7 @@ const EditPage = (
                         flex-row
                         justify-center
                         items-center
-                        "> {(submitButtonLoadingState) ? <LoadingIndicator /> : "Update"} </button>
+                        "> Update </button>
 
                         <button type="submit"
                         className="
@@ -266,6 +277,8 @@ const EditPage = (
 
             </section>
 
+            {/* Preview Section */}
+                        
             <section
             className="
             PreviewSection
