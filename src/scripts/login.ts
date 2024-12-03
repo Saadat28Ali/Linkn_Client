@@ -1,10 +1,6 @@
-// Module imports -------------------------------
-
-import axios from "axios";
-
 // Script imports -------------------------------
 
-import findUser, { checkUserExists } from "./findUser";
+import findUser from "./findUser";
 import { writeToLocalStorage } from "./localStorage";
 import requestToken from "./requestToken";
 

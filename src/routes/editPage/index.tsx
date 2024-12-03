@@ -238,7 +238,7 @@ const EditPage = (
                     gap-2
                     ">
                         <button
-                        onClick={(event: any) => {
+                        onClick={() => {
                             updatePreview();
                         }}
                         className="

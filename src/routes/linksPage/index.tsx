@@ -9,7 +9,7 @@ import { useParams } from "react-router";
 // Script imports -------------------------------
 
 import getLinksPageData from "../../scripts/loaders/linksPageLoader";
-import { readTheme, writeTheme } from "../../scripts/theme";
+import { readTheme } from "../../scripts/theme";
 
 // Type and enum imports ------------------------
 
@@ -21,7 +21,7 @@ import { ThemesEnum } from "../../main";
 import Icon from "../../components/Icon/Icon";
 import Bannerarea from "../../components/Bannerarea/Bannerarea";
 import LoadingPage from "../../components/LoadingPage/LoadingPage";
-import ThemeButton from "../../components/ThemeButton/ThemeButton";
+// import ThemeButton from "../../components/ThemeButton/ThemeButton";
 
 // ----------------------------------------------
 
@@ -31,16 +31,16 @@ interface socialLinksInter {
   twitter: string, 
 }
 
-interface linksPageDataInter {
-  username: string, 
-  displayImage: string, 
-  displayName: string, 
-  subtext: string, 
-  socialLinks: socialLinksInter, 
-  links: Array<Linkinter>, 
-  lightMode: boolean, 
-  token: any
-}
+// interface linksPageDataInter {
+//   username: string, 
+//   displayImage: string, 
+//   displayName: string, 
+//   subtext: string, 
+//   socialLinks: socialLinksInter, 
+//   links: Array<Linkinter>, 
+//   lightMode: boolean, 
+//   token: any
+// }
 
 const LinksPage = (
   {}:{}

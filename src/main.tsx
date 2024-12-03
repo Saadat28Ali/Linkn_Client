@@ -14,7 +14,6 @@ import { createBrowserRouter, RouterProvider, redirect } from 'react-router-dom'
 
 // Loader imports -------------------------------
 
-import getLinksPageData from './scripts/loaders/linksPageLoader.ts';
 import getEditPageData from './scripts/loaders/editPageLoader.ts';
 
 // Script imports -------------------------------

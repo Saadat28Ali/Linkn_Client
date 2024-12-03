@@ -8,11 +8,11 @@ import { Linkinter } from "../Link/Link";
 
 // Enum imports ---------------------------------
 
-import { ThemesEnum } from "../../main";
+// import { ThemesEnum } from "../../main";
 
 // Script imports -------------------------------
 
-import { readTheme } from "../../scripts/theme";
+// import { readTheme } from "../../scripts/theme";
 import { popItemAtIndex, insertItemAtIndex } from "../../scripts/array/array";
 
 // Component imports ----------------------------
@@ -37,8 +37,8 @@ export default function EditableLinkArea(
 
 ) {
     // console.log("Editable link area");
-    const themeInStorage: ThemesEnum | null = readTheme();
-    const [theme, ] = useState<ThemesEnum>((themeInStorage) ? themeInStorage : ThemesEnum.darkTheme);
+    // const themeInStorage: ThemesEnum | null = readTheme();
+    // const [theme, ] = useState<ThemesEnum>((themeInStorage) ? themeInStorage : ThemesEnum.darkTheme);
     const [replacementData, setReplacementData] = useState<
     {
         moveLinkOnIndex: number, 

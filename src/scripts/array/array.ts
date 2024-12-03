@@ -19,13 +19,13 @@ export function insertItemAtIndex(arr: Array<any>, index: number, item: any): vo
     }
 }
 
-function test(): void {
-    let a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    console.log("Before moving: ", a);
-    const moving = popItemAtIndex(a, 0);
-    console.log("Ater item is popped: ", a);
-    insertItemAtIndex(a, 9, moving);
-    console.log("After item is pushed again: ", a);
-}
+// function test(): void {
+//     let a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+//     console.log("Before moving: ", a);
+//     const moving = popItemAtIndex(a, 0);
+//     console.log("Ater item is popped: ", a);
+//     insertItemAtIndex(a, 9, moving);
+//     console.log("After item is pushed again: ", a);
+// }
 
 // export default test();

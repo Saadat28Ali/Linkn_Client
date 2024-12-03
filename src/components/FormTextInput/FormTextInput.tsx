@@ -1,6 +1,6 @@
 // React imports --------------------------------
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // ----------------------------------------------
 

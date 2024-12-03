@@ -1,8 +1,8 @@
-// Script imports -------------------------------
-import resolveAsset from "../../scripts/resolveAsset";
-
 // Other imports --------------------------------
+
 import { ThemesEnum } from "../../main";
+
+// ----------------------------------------------
 
 interface Linkinter {
     icon?: string, 

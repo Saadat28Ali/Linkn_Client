@@ -1,9 +1,13 @@
-// Component imports
+// Component imports ----------------------------
+
 import Link from "../Link/Link";
 
-// Other imports
+// Other imports --------------------------------
+
 import { Linkinter } from "../Link/Link";
 import { ThemesEnum } from "../../main";
+
+// ----------------------------------------------
 
 const Linkarea = (
     {

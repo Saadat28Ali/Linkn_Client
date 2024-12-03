@@ -1,7 +1,3 @@
-// React imports --------------------------------
-
-import { ChangeEvent, useEffect, useState } from "react";
-
 // Interface imports ----------------------------
 
 import { Linkinter } from "../Link/Link";
