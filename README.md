@@ -5,11 +5,12 @@ Note: This is the client side of this app. To view the repo for server side, go 
 ![Static Badge](https://img.shields.io/badge/Mongo-DB-green)
 ![Static Badge](https://img.shields.io/badge/Express-JS-white)
 ![Static Badge](https://img.shields.io/badge/React-JS-cyan)
-![Static Badge](https://img.shields.io/badge/React-JS-cyan)
+![Static Badge](https://img.shields.io/badge/Node-JS-green)
 ![Static Badge](https://img.shields.io/badge/Type-Script-blue)
 ![Static Badge](https://img.shields.io/badge/Tailwind-CSS-skyblue)
 ![Static Badge](https://img.shields.io/badge/Axios-magenta)
-![Static Badge](https://img.shields.io/badge/Axios-magenta)
+![Static Badge](https://img.shields.io/badge/REST-API-maroon)
+
 
 # Pages
   - Links Page
